@@ -5,43 +5,49 @@ import java.util.Stack;
  */
 public class Main {
 
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
-       
+        @SuppressWarnings("rawtypes")
+        Stack theStack = new Stack<>();
+
         String test = "}{";
         String test2 = "[(])";
-        pairEqualCheck(test);
-        pairEqualCheck(test2);
+        String test3 = "[()]{}{[()()]()}";
+
+        pairEqualCheck(test, theStack);
+        theStack.clear();
+
+        pairEqualCheck(test2, theStack);
+        theStack.clear();
+
+        pairEqualCheck(test3, theStack);
+        theStack.clear();
     }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static boolean pairEqualCheck(String pairs){
-        Stack theStack = new Stack<>();
-        
-        //Allow for the accumulation of the pairs of 
-        for(int x = 0; x < pairs.length(); x++){
-
-                if(pairs.charAt(x) == '[' || pairs.charAt(x) == '{' ||  pairs.charAt(x) == '('  ){
-                   
-                    theStack.push(pairs.charAt(x));
-
-                } else if(pairs.charAt(x) == ']' || pairs.charAt(x) == '}' || pairs.charAt(x) == ')') {
-                    
-                    theStack.pop();
+    public static boolean pairEqualCheck(String pairs, Stack<Character> theStack) {
+        for (int x = 0; x < pairs.length(); x++) {
+            char currentChar = pairs.charAt(x);
+            if (currentChar == '[' || currentChar == '{' || currentChar == '(') {
+                theStack.push(currentChar);
+            } else if (currentChar == ']' || currentChar == '}' || currentChar == ')') {
+                if (theStack.empty()) {
+                    System.out.println("UnBalanced");
+                    return false; // Unbalanced: no corresponding opening parenthesis
                 }
-            
-            
+                char topChar = theStack.pop();
+                if ((currentChar == ']' && topChar != '[') ||
+                    (currentChar == '}' && topChar != '{') ||
+                    (currentChar == ')' && topChar != '(')) {
+                    System.out.println("UnBalanced");
+                    return false; // Unbalanced: mismatched parentheses
+                }
+            }
+        }
+        if(theStack.empty()){
+            System.out.println("Balanced");
         }
 
-        if (theStack.empty()) {
-            System.out.println("Balanced.");
-        }
-        else {
-            System.out.println("Not Balanced.");
-        }
-         // Build in method to determine if the stack is empty or not.P
-         return theStack.empty();
+        return theStack.empty(); // Balanced if stack is empty after processing all characters
     }
-        
     
     
 }
