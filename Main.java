@@ -10,6 +10,7 @@ public class Main {
         pairEqualCheck(pairs);
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static boolean pairEqualCheck(String[][] pairs){
         Stack theStack = new Stack<>();
         
@@ -17,11 +18,20 @@ public class Main {
         for(int x = 0; x < pairs.length; x++){
             for(int y = 0; y < pairs[x].length; y++){
             
-                System.out.println(pairs[x][y]);
+                if(pairs[x][y] == "[" || pairs[x][y] == "{" ||  pairs[x][y] == "("  ){
+                    theStack.push(pairs[x][y]);
+
+                } else if(pairs[x][y] == "]" || pairs[x][y] == "}" || pairs[x][y] == ")") {
+                    
+                    theStack.pop();
+                }
+            }
+            
         }
+                // Build in method to determine if the stack is empty or not.
+                return theStack.empty();
     }
         
-        // Build in method to determine if the stack is empty or not.
-        return theStack.empty();
-    }
+    
+    
 }
