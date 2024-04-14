@@ -6,29 +6,28 @@ import java.util.Stack;
 public class Main {
 
     public static void main(String[] args) {
-       String[][] pairs = {{"a", "b"}, {"a", "c"}, {"b", "c"}};
-        pairEqualCheck(pairs);
+       String[][] test = {{"[()]{}{[()()]()}", "b"}, {"a", "c"}, {"b", "c"}};
+        pairEqualCheck(test);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static boolean pairEqualCheck(String[][] pairs){
+    public static boolean pairEqualCheck(String pairs){
         Stack theStack = new Stack<>();
         
         //Allow for the accumulation of the pairs of 
         for(int x = 0; x < pairs.length; x++){
-            for(int y = 0; y < pairs[x].length; y++){
-            
-                if(pairs[x][y] == "[" || pairs[x][y] == "{" ||  pairs[x][y] == "("  ){
-                    theStack.push(pairs[x][y]);
 
-                } else if(pairs[x][y] == "]" || pairs[x][y] == "}" || pairs[x][y] == ")") {
+                if(pairs[x] == "[" || pairs[x] == "{" ||  pairs[x] == "("  ){
+                    theStack.push(pairs[x]);
+
+                } else if(pairs[x] == "]" || pairs[x] == "}" || pairs[x] == ")") {
                     
                     theStack.pop();
                 }
-            }
+            
             
         }
-                // Build in method to determine if the stack is empty or not.
+                // Build in method to determine if the stack is empty or not.P
                 return theStack.empty();
     }
         
