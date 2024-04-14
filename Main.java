@@ -6,8 +6,11 @@ import java.util.Stack;
 public class Main {
 
     public static void main(String[] args) {
-       String[][] test = {{"[()]{}{[()()]()}", "b"}, {"a", "c"}, {"b", "c"}};
+       
+        String test = "}{";
+        String test2 = "[(])";
         pairEqualCheck(test);
+        pairEqualCheck(test2);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -15,20 +18,28 @@ public class Main {
         Stack theStack = new Stack<>();
         
         //Allow for the accumulation of the pairs of 
-        for(int x = 0; x < pairs.length; x++){
+        for(int x = 0; x < pairs.length(); x++){
 
-                if(pairs[x] == "[" || pairs[x] == "{" ||  pairs[x] == "("  ){
-                    theStack.push(pairs[x]);
+                if(pairs.charAt(x) == '[' || pairs.charAt(x) == '{' ||  pairs.charAt(x) == '('  ){
+                   
+                    theStack.push(pairs.charAt(x));
 
-                } else if(pairs[x] == "]" || pairs[x] == "}" || pairs[x] == ")") {
+                } else if(pairs.charAt(x) == ']' || pairs.charAt(x) == '}' || pairs.charAt(x) == ')') {
                     
                     theStack.pop();
                 }
             
             
         }
-                // Build in method to determine if the stack is empty or not.P
-                return theStack.empty();
+
+        if (theStack.empty()) {
+            System.out.println("Balanced.");
+        }
+        else {
+            System.out.println("Not Balanced.");
+        }
+         // Build in method to determine if the stack is empty or not.P
+         return theStack.empty();
     }
         
     
